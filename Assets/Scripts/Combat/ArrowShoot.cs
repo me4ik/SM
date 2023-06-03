@@ -1,3 +1,4 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ArrowShoot : MonoBehaviour
+public class ArrowShoot : NetworkBehaviour
 {
     public GameObject Arrow;
     public Transform ShootPoint;
@@ -19,24 +20,25 @@ public class ArrowShoot : MonoBehaviour
     private float CDtimer = 0f;   
     public float CD = 2f;
 
-    public Slider CDSlider;
-    public Slider ArrowSlider;
+    //public Slider CDSlider;
+    //public Slider ArrowSlider;
 
 
     private void Start()
     {
-        ArrowSlider.maxValue = MaxCharge;
+       // ArrowSlider.maxValue = MaxCharge;
     }
 
     void Update()
     {
+        if (!isLocalPlayer) return;
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && PlayerClasses.ClassID == 3 && !IsOnCD) 
         {
             Debug.Log("mouse is down");
             IsCharging = true;
             NeStrelyay = false;
-            CDSlider.maxValue = CD;
+            //CDSlider.maxValue = CD;
         }
         else if (Input.GetKeyDown(KeyCode.Mouse0) && PlayerClasses.ClassID == 3 && IsOnCD)
             NeStrelyay = true;
@@ -44,7 +46,7 @@ public class ArrowShoot : MonoBehaviour
             if (IsCharging) 
         { 
             ShootStrenth += Time.deltaTime * 4.2f;
-            ArrowSlider.value = ShootStrenth;
+            //ArrowSlider.value = ShootStrenth;
         }
 
 
@@ -58,7 +60,7 @@ public class ArrowShoot : MonoBehaviour
             Shoot(ShootStrenth); 
             Debug.Log("Released an arrow " + ShootStrenth); 
            IsOnCD = true;
-            ArrowSlider.value = 0f;
+            //ArrowSlider.value = 0f;
 
         }
 
@@ -66,7 +68,7 @@ public class ArrowShoot : MonoBehaviour
         if (IsOnCD)
         {
               CDtimer -= Time.deltaTime;
-            CDSlider.value = CDtimer;
+            //CDSlider.value = CDtimer;
         }
             
         if (CDtimer < 0)
@@ -82,6 +84,7 @@ public class ArrowShoot : MonoBehaviour
     {
          CDtimer = CD;
         GameObject ArrowClone = Instantiate(Arrow, ShootPoint.position, ShootPoint.rotation);
+        NetworkServer.Spawn(ArrowClone);
         ArrowClone.GetComponent<Rigidbody2D>().velocity = ShootPoint.right * sila;
     }
 }

@@ -1,9 +1,10 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class FireBallLogic : MonoBehaviour
+public class FireBallLogic : NetworkBehaviour
 {
  
     public float speed = 3f;

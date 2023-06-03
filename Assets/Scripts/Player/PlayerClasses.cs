@@ -1,9 +1,10 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-public class PlayerClasses : MonoBehaviour
+public class PlayerClasses : NetworkBehaviour
 {
     public static int ClassID = 1;
 
@@ -36,8 +37,9 @@ public class PlayerClasses : MonoBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer) return;
 
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SwitchClass1();
         }

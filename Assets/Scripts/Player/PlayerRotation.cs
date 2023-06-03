@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRotation : MonoBehaviour
+public class PlayerRotation : NetworkBehaviour
 {
 
     public float maxTurnSpeed = 90;
@@ -13,10 +14,13 @@ public class PlayerRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = mousePosition - transform.position;
-        float targetAngle = Vector2.SignedAngle(Vector2.right, direction);
-        angle = Mathf.SmoothDampAngle(angle, targetAngle, ref currentVelocity, smoothTime, maxTurnSpeed);
-        transform.eulerAngles = new Vector3(0, 0, angle);
+        if (!isLocalPlayer) return;
+        
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 direction = mousePosition - transform.position;
+            float targetAngle = Vector2.SignedAngle(Vector2.right, direction);
+            angle = Mathf.SmoothDampAngle(angle, targetAngle, ref currentVelocity, smoothTime, maxTurnSpeed);
+            transform.eulerAngles = new Vector3(0, 0, angle);
+        
     }
 }

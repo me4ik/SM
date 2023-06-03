@@ -1,18 +1,22 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : NetworkBehaviour
 {
 
     public Transform followTransform;
     public float smoothSpeed = 0.125f;
-    // Start is called before the first frame update
-    void Start()
+
+    private Camera mainCam;
+    // Start is called before the firstframe update
+
+    private void Awake()
     {
-        
-    }   
+        mainCam = Camera.main;
+    }
 
     // Update is called once per frame
     void FixedUpdate()

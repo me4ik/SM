@@ -1,9 +1,10 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArrowLogic : MonoBehaviour
+public class ArrowLogic : NetworkBehaviour
 {
     private float _ShootStrenth;
     private float ArrowDamage;

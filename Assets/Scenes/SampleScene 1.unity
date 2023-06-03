@@ -1098,7 +1098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba721c26ec74a3a41b178661fe3bd9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTurnSpeed: 360
+  maxTurnSpeed: 540
   smoothTime: 0.07
 --- !u!212 &909366358
 SpriteRenderer:
@@ -1301,7 +1301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shield: {fileID: 1690164130}
   ShieldTime: 0.4
---- !u!43 &950746345
+--- !u!43 &1000651669
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2259,8 +2259,8 @@ MonoBehaviour:
   - {x: 0.49999976, y: 0.5, z: 0}
   - {x: 0.49999976, y: -0.5, z: 0}
   m_ShapePathHash: 0
-  m_Mesh: {fileID: 950746345}
-  m_InstanceId: 27672
+  m_Mesh: {fileID: 1000651669}
+  m_InstanceId: 28198
 --- !u!1 &1853264779
 GameObject:
   m_ObjectHideFlags: 0
