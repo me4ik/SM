@@ -25,7 +25,7 @@ public class FireBallShoot : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && PlayerClasses.ClassID == 1 && !JustFired)
         {
-            ShootFBall();
+            CmdShootFBall();
             JustFired = true;
             Debug.Log("Just Fired" + FireCd);
             //CDSlider.maxValue = FireCd;
@@ -44,7 +44,8 @@ public class FireBallShoot : NetworkBehaviour
 
     }
 
-    private void ShootFBall()
+    [Command]
+    private void CmdShootFBall()
     {
         FireTimer = FireCd;
         GameObject fblClone = Instantiate(fireball, firePoint.position, firePoint.rotation);

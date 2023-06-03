@@ -11,7 +11,7 @@ public class HitZonich : MonoBehaviour
     {
         if (other.tag == "Enemy")
         {
-            other.GetComponent<EnemyHealth>().getDamage(damageN);
+            other.GetComponent<EnemyHealth>().CmdgetDamage(damageN);
         }
     }
 

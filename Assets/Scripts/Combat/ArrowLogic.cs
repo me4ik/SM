@@ -36,7 +36,7 @@ public class ArrowLogic : NetworkBehaviour
 
         else if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyHealth>().getDamage(Convert.ToInt32(ArrowDamage));
+            other.gameObject.GetComponent<EnemyHealth>().CmdgetDamage(Convert.ToInt32(ArrowDamage));
             Destroy(gameObject);
         }
 

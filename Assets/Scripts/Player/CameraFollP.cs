@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CameraFollP : NetworkBehaviour
 {
+    private Transform playerT;
+
     private Transform camTrans;
     private Camera mainCam;
 
@@ -14,6 +16,7 @@ public class CameraFollP : NetworkBehaviour
     {
         mainCam = Camera.main;
         camTrans = mainCam.GetComponent<Transform>();
+        playerT = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -21,13 +24,13 @@ public class CameraFollP : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        Vector3 currentPosition = transform.position;
+        Vector3 currentPosition = camTrans.transform.position;
 
 
-        Vector3 desiredPosition = new Vector3(camTrans.position.x, camTrans.position.y, currentPosition.z);
+        Vector3 desiredPosition = new Vector3(playerT.position.x, playerT.position.y, currentPosition.z);
         Vector3 smoothedPosition = Vector3.Lerp(currentPosition, desiredPosition, smoothSpeed);
 
-        transform.position = smoothedPosition;
+        camTrans.transform.position = smoothedPosition;
 
     }
 

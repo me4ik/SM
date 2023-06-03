@@ -37,7 +37,7 @@ public class FireBallLogic : NetworkBehaviour
         
         else if (other.gameObject.CompareTag("Enemy"))
         {
-            other.gameObject.GetComponent<EnemyHealth>().getDamage(fbalDamage);
+            other.gameObject.GetComponent<EnemyHealth>().CmdgetDamage(fbalDamage);
             Destroy(gameObject);
 
         }

@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class EnemyHealth : NetworkBehaviour
 {
+    [SyncVar]
     public int Hp = 100;
     private SpriteRenderer sr;
+
+    [SyncVar]
     Color col;
 
     private Rigidbody2D rb;
@@ -26,19 +29,13 @@ public class EnemyHealth : NetworkBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
-
-    public int getDamage(int DmgRs)
+    [Command]
+    public void CmdgetDamage(int DmgRs)
     {
         Hp -= DmgRs;
         col.r -= 0.1f;
         sr.color = col;
         Debug.Log(Hp);
-        return Hp;
     }
 
     public void PushBack(Vector2 direct, float pushStr)
