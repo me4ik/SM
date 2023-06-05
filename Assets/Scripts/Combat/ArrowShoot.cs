@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class ArrowShoot : NetworkBehaviour
 {
+    private PlayerClasses clas;
     public GameObject Arrow;
     public Transform ShootPoint;
 
@@ -26,6 +27,7 @@ public class ArrowShoot : NetworkBehaviour
 
     private void Start()
     {
+        clas = GetComponent<PlayerClasses>();
        // ArrowSlider.maxValue = MaxCharge;
     }
 
@@ -33,14 +35,14 @@ public class ArrowShoot : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && PlayerClasses.ClassID == 3 && !IsOnCD) 
+        if (Input.GetKeyDown(KeyCode.Mouse0) && clas.ClassID == 3 && !IsOnCD) 
         {
             Debug.Log("mouse is down");
             IsCharging = true;
             NeStrelyay = false;
             //CDSlider.maxValue = CD;
         }
-        else if (Input.GetKeyDown(KeyCode.Mouse0) && PlayerClasses.ClassID == 3 && IsOnCD)
+        else if (Input.GetKeyDown(KeyCode.Mouse0) && clas.ClassID == 3 && IsOnCD)
             NeStrelyay = true;
 
             if (IsCharging) 
@@ -50,14 +52,14 @@ public class ArrowShoot : NetworkBehaviour
         }
 
 
-        if (Input.GetKeyUp(KeyCode.Mouse0) && PlayerClasses.ClassID == 3 && !IsOnCD && !NeStrelyay) 
+        if (Input.GetKeyUp(KeyCode.Mouse0) && clas.ClassID == 3 && !IsOnCD && !NeStrelyay) 
         {
             IsCharging = false; 
             Debug.Log("Mouse is Up");
 
             if (ShootStrenth > MaxCharge) ShootStrenth = MaxCharge; 
 
-            Shoot(ShootStrenth); 
+            CmdShoot(ShootStrenth); 
             Debug.Log("Released an arrow " + ShootStrenth); 
            IsOnCD = true;
             //ArrowSlider.value = 0f;
@@ -80,7 +82,8 @@ public class ArrowShoot : NetworkBehaviour
 
     }
 
-    private void Shoot(float sila)
+    [Command]
+    private void CmdShoot(float sila)
     {
          CDtimer = CD;
         GameObject ArrowClone = Instantiate(Arrow, ShootPoint.position, ShootPoint.rotation);

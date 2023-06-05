@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HitZonich : MonoBehaviour
+public class HitZonich : NetworkBehaviour
 {
 
     public int damageN = 5;
@@ -14,7 +15,6 @@ public class HitZonich : MonoBehaviour
             other.GetComponent<EnemyHealth>().CmdgetDamage(damageN);
         }
     }
-
 
 }
     

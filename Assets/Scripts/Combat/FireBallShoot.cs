@@ -7,24 +7,29 @@ using UnityEngine.UI;
 
 public class FireBallShoot : NetworkBehaviour
 {
+    private PlayerClasses clas;
+
     public GameObject fireball;
     public Transform firePoint;
     public float bulletSpeed = 50;
 
     private bool JustFired = false;
-    private float FireCd = 1f;
+    public float FireCd = 1f;
     private float FireTimer = 0;
 
     //public Slider CDSlider;
+    private void Start()
+    {
+        clas = GetComponent<PlayerClasses>();
+    }
 
-
-    // Update is called once per frame
     void Update()
     {
         if (!isLocalPlayer) return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && PlayerClasses.ClassID == 1 && !JustFired)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && clas.ClassID == 1 && !JustFired)
         {
+            FireTimer = FireCd;
             CmdShootFBall();
             JustFired = true;
             Debug.Log("Just Fired" + FireCd);
@@ -46,8 +51,7 @@ public class FireBallShoot : NetworkBehaviour
 
     [Command]
     private void CmdShootFBall()
-    {
-        FireTimer = FireCd;
+    {        
         GameObject fblClone = Instantiate(fireball, firePoint.position, firePoint.rotation);
         NetworkServer.Spawn(fblClone);
         fblClone.GetComponent<Rigidbody2D>().velocity = firePoint.right * bulletSpeed;

@@ -1,9 +1,12 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldScript : MonoBehaviour
+public class ShieldScript : NetworkBehaviour
 {
+    private PlayerClasses clas;
+
     public GameObject shield;
 
     private bool OnCD = false;
@@ -16,11 +19,14 @@ public class ShieldScript : MonoBehaviour
     private void Start()
     {
         ShieldActive = ShieldTime;
+        clas = GetComponent<PlayerClasses>();
     }
-    // Update is called once per frame
+    
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse1) && PlayerClasses.ClassID == 2 && !OnCD)
+        if (!isLocalPlayer) return;
+
+        if (Input.GetKeyDown(KeyCode.Mouse1) && clas.ClassID == 2 && !OnCD)
         {
             shield.SetActive(true);
             OnCD = true;

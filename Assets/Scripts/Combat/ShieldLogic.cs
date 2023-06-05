@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShieldLogic : MonoBehaviour
+public class ShieldLogic : NetworkBehaviour
 {
     public float PushStrenth = 4f;
 
@@ -15,7 +16,7 @@ public class ShieldLogic : MonoBehaviour
 
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.GetComponent<EnemyHealth>().PushBack(transform.right, PushStrenth);
+            other.GetComponent<EnemyHealth>().CmdPushBack(transform.right, PushStrenth);
         }
     }
 }

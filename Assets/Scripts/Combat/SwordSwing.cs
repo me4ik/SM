@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class SwordSwing : NetworkBehaviour
 {
+    private PlayerClasses clas;
+
     public GameObject HitZona;
     private bool IsSwing = false;
     private float SwingTimer = 0f;
@@ -14,16 +17,23 @@ public class SwordSwing : NetworkBehaviour
 
     //public Slider CDSlider;
 
+    private void Start()
+    {
+        clas = GetComponent<PlayerClasses>();   
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (!isLocalPlayer) return;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && PlayerClasses.ClassID == 2 && !IsSwing)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && clas.ClassID == 2 && !IsSwing)
         {
-            Swing();
+            if (SwingTimer > 0f) return;
+            SwingTimer = SwingCD;
+            CmdSwing();
+            Invoke(nameof(CmdSetFalse), 0.1f);
             IsSwing = true;
-            Debug.Log("Just Swinged" + SwingTimer);
             //CDSlider.maxValue = SwingCD;
         }
 
@@ -41,15 +51,15 @@ public class SwordSwing : NetworkBehaviour
 
     }
 
-    public void Swing()
+    [Command]
+    public void CmdSwing()
     {
-        if (SwingTimer > 0f) return;
-        HitZona.SetActive(true);
-        SwingTimer = SwingCD;
-        Invoke(nameof(SetFalse), 0.1f);
+        Debug.Log("Just Swinged" + SwingTimer);
+        HitZona.SetActive(true);       
     }
 
-    void SetFalse()
+    [Command]
+    void CmdSetFalse()
     {
         HitZona.SetActive(false);
     }

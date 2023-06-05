@@ -6,17 +6,17 @@ using UnityEngine;
 
 public class PlayerClasses : NetworkBehaviour
 {
-    public static int ClassID = 1;
+    public int ClassID = 1;
 
     public GameObject Bow;
-    public GameObject Slider;
+    //public GameObject Slider;
 
     public void SwitchClass1()
     {
         ClassID = 1;
         Debug.Log(ClassID);
         Bow.SetActive(false);
-        Slider.SetActive(false);
+        //Slider.SetActive(false);
     }
 
     public void SwitchClass2()
@@ -24,13 +24,13 @@ public class PlayerClasses : NetworkBehaviour
         ClassID = 2;
         Debug.Log(ClassID);
         Bow.SetActive(false);
-        Slider.SetActive(false);
+        //Slider.SetActive(false);
     }
 
     public void SwitchClass3()
     {
         Bow.SetActive(true);
-        Slider.SetActive(true);
+        //Slider.SetActive(true);
         ClassID = 3;
         Debug.Log(ClassID);
     }

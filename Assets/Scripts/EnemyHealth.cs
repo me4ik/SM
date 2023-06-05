@@ -33,12 +33,19 @@ public class EnemyHealth : NetworkBehaviour
     public void CmdgetDamage(int DmgRs)
     {
         Hp -= DmgRs;
-        col.r -= 0.1f;
+        RpcChangeColor();
         sr.color = col;
         Debug.Log(Hp);
     }
 
-    public void PushBack(Vector2 direct, float pushStr)
+    [ClientRpc]
+    void RpcChangeColor()
+    {
+        col.r -= 0.1f;
+    }
+
+    [Command]
+    public void CmdPushBack(Vector2 direct, float pushStr)
     {
         rb.AddForce(direct * pushStr);
         Debug.Log("pushed Back " + direct);
